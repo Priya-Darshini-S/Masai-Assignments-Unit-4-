@@ -3,7 +3,7 @@ const users = require("./users.json")
 //console.log(express);
 const app= express();
 
-app.get("/",(req, res)=> {
+app.get("/users",(req, res)=> {
     res.send({users});
 });
 
