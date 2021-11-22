@@ -1,0 +1,234 @@
+******************Mongo DB Assignment******************************
+
+
+> show dbs                  // shows the database available.
+
+output: 
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+
+-------------------------------------------------------------------------------
+
+> use assignment          //creates a database called assignment.
+
+output: 
+switched to db assignment
+
+
+--------------------------------------------------------------------------------
+
+> db.users.insert({first_name: "Priya", last_name: "darshini", age: 21, email: "priya06200@gmail.com", gender: "F", IP_address: "190.23.123"})  
+                         //inserts single document in the collection called users.
+
+
+output:
+WriteResult({ "nInserted" : 1 })
+
+----------------------------------------------------------------------------------
+
+> db.users.insertMany([{first_name: "Priya", last_name: "darshini", age: 21, email: "priya06200@gmail.com", gender: "F", IP_address: "190.23.123"},
+ {first_name: "vasant", last_name: "kumar", age: 23, email: "vssnt@gmail.com", gender: "M", IP_address: "190.23.120"},
+{first_name: "selena", last_name: "gomez", age: 32, email: "selena0@gmail.com", gender: "F", IP_address: "190.22.123"},
+{last_name: "swift", age: 36, email: "swift@gmail.com", first_name: "Taylor", gender: "F", IP_address: "190.20.113"},
+{email: "thor@gmail.com", first_name: "thor", last_name: "hemsworth", age: 34,  gender: "M", IP_address: "190.23.343"},
+{email: "beam@gmail.com", first_name: "Chotta",  age: 10,  gender: "M", IP_address: "190.23.353", last_name: "bheem"},
+{IP_address: "190.23.243", first_name: "Roya", age: 17, last_name: "dragon",  email: "dragon@gmail.com", gender: "F"},
+{ gender: "M", first_name: "Peter", last_name: "rabbit", age: 13, email: "peter@gmail.com", IP_address: "190.03.097"},
+{first_name: "yoo", last_name: "seung", age: 25, email: "seunghoo@gmail.com", gender: "M", IP_address: "190.23.143"}])         //to insert many data at a time.
+
+output: 
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("619be70cc98794bef372288a"),
+                ObjectId("619be70cc98794bef372288b"),
+                ObjectId("619be70cc98794bef372288c"),
+                ObjectId("619be70cc98794bef372288d"),
+                ObjectId("619be70cc98794bef372288e"),
+                ObjectId("619be70cc98794bef372288f"),
+                ObjectId("619be70cc98794bef3722890"),
+                ObjectId("619be70cc98794bef3722891"),
+                ObjectId("619be70cc98794bef3722892")
+        ]
+}
+
+---------------------------------------------------------------------------------------
+
+> db.users.find().pretty()                                          //to find the entire documents present in collection.
+output:
+{
+        "_id" : ObjectId("619be22ec98794bef3722888"),
+        "last_name" : "darshini",
+        "age" : 21
+}
+{
+        "_id" : ObjectId("619be2e9c98794bef3722889"),
+        "first_name" : "Priya",
+        "last_name" : "darshini",
+        "age" : 21,
+        "email" : "priya06200@gmail.com",
+        "gender" : "F",
+        "IP_address" : "190.23.123"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef372288a"),
+        "first_name" : "Priya",
+        "last_name" : "darshini",
+        "age" : 21,
+        "email" : "priya06200@gmail.com",
+        "gender" : "F",
+        "IP_address" : "190.23.123"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef372288b"),
+        "first_name" : "vasant",
+        "last_name" : "kumar",
+        "age" : 23,
+        "email" : "vssnt@gmail.com",
+        "gender" : "M",
+        "IP_address" : "190.23.120"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef372288c"),
+        "first_name" : "selena",
+        "last_name" : "gomez",
+        "age" : 32,
+        "email" : "selena0@gmail.com",
+        "gender" : "F",
+        "IP_address" : "190.22.123"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef372288d"),
+        "last_name" : "swift",
+        "age" : 36,
+        "email" : "swift@gmail.com",
+        "first_name" : "Taylor",
+        "gender" : "F",
+        "IP_address" : "190.20.113"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef372288e"),
+        "email" : "thor@gmail.com",
+        "first_name" : "thor",
+        "last_name" : "hemsworth",
+        "age" : 34,
+        "gender" : "M",
+        "IP_address" : "190.23.343"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef372288f"),
+        "email" : "beam@gmail.com",
+        "first_name" : "Chotta",
+        "age" : 10,
+        "gender" : "M",
+        "IP_address" : "190.23.353",
+        "last_name" : "bheem"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef3722890"),
+        "IP_address" : "190.23.243",
+        "first_name" : "Roya",
+        "age" : 17,
+        "last_name" : "dragon",
+        "email" : "dragon@gmail.com",
+        "gender" : "F"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef3722891"),
+        "gender" : "M",
+        "first_name" : "Peter",
+        "last_name" : "rabbit",
+        "age" : 13,
+        "email" : "peter@gmail.com",
+        "IP_address" : "190.03.097"
+}
+{
+        "_id" : ObjectId("619be70cc98794bef3722892"),
+        "first_name" : "yoo",
+        "last_name" : "seung",
+        "age" : 25,
+        "email" : "seunghoo@gmail.com",
+        "gender" : "M",
+        "IP_address" : "190.23.143"
+}
+
+-------------------------------------------------------------------------------
+
+> db.users.findOne()                                            //to find one document present in collection.
+
+output:
+{
+        "_id" : ObjectId("619be22ec98794bef3722888"),
+        "last_name" : "darshini",
+        "age" : 21
+}
+
+
+>  db.users.findOne({first_name: "selena"})
+
+output: 
+{
+        "_id" : ObjectId("619be70cc98794bef372288c"),
+        "first_name" : "selena",
+        "last_name" : "gomez",
+        "age" : 32,
+        "email" : "selena0@gmail.com",
+        "gender" : "F",
+        "IP_address" : "190.22.123"
+}
+--------------------------------------------------------------------------------
+
+>db.users.update({first_name: "Priya"},{$set: {first_name: "saranya", last_name: "grande"}})   // to update specific data in a document
+
+output: 
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.users.findOne({first_name: "saranya"})
+{
+        "_id" : ObjectId("619be2e9c98794bef3722889"),
+        "first_name" : "saranya",
+        "last_name" : "grande",
+        "age" : 21,
+        "email" : "priya06200@gmail.com",
+        "gender" : "F",
+        "IP_address" : "190.23.123"
+}
+
+--------------------------------------------------------------------------------
+  
+>  db.users.updateMany({gender: "M"},{$set: {gender: "Male"}})                        // to update many data with unique fields in a document   
+
+output:
+{ "acknowledged" : true, "matchedCount" : 5, "modifiedCount" : 5 }
+
+---------------------------------------------------------------------------------
+
+> db.users.remove({"_id" : ObjectId("619be70cc98794bef372288b")})               // removes the data with mentioned field from the document
+
+output:
+WriteResult({ "nRemoved" : 1 })
+
+---------------------------------------------------------------------------------
+
+> db.users.deleteOne({gender: "F"})                                            // deletes the 1st data found with mentioned field from the document
+
+output:
+{ "acknowledged" : true, "deletedCount" : 1    
+
+----------------------------------------------------------------------------------       
+> db.users.deleteMany({gender: "F"})                                            // deletes all the data found with mentioned field from the document
+
+output:
+{ "acknowledged" : true, "deletedCount" : 3 }
+
+----------------------------------------------------------------------------------
+
+db.dropDatabase()                                                               // this removes the collection called assignment
+
+output:
+{ "ok" : 1 }
+
+
+---------------------------------------------------------------------------------------
