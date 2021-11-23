@@ -1,0 +1,225 @@
+------------------Mongo Assignment-------------------
+
+// to find a feild equal to given field
+
+ > db.movie.find({movie_name: {$eq: "Final Destination"}}).pretty()
+
+output: 
+{
+        "_id" : ObjectId("619d02297823ab84392fa4a4"),
+        "movie_name" : "Final Destination",
+        "genres" : "Drama|Thriller",
+        "year" : 1991,
+        "budjet" : 16649
+}
+
+-------------------------------------------------------------
+
+//to find all movies other than given movie name
+
+> db.movie.find({movie_name: {$ne: "Final Destination"}}).pretty() 
+
+output:
+{
+        "_id" : ObjectId("619d02297823ab84392fa4a5"),
+        "movie_name" : "Desperate Journey",
+        "genres" : "Drama|War",
+        "year" : 1996,
+        "budjet" : 19856
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4a6"),
+        "movie_name" : "Four Feathers, The",
+        "genres" : "Adventure|War",
+        "year" : 2015,
+        "budjet" : 14465
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4a7"),
+        "movie_name" : "Kaspar Hauser",
+        "genres" : "Drama|Mystery",
+        "year" : 2006,
+        "budjet" : 14492
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4a8"),
+        "movie_name" : "Strapped",
+        "genres" : "Action|Drama",
+        "year" : 1996,
+        "budjet" : 12038
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4a9"),
+        "movie_name" : "Hush... Hush, Sweet Charlotte",
+        "genres" : "Horror|Thriller",
+        "year" : 2009,
+        "budjet" : 15582
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4aa"),
+        "movie_name" : "Back to the Future Part II",
+        "genres" : "Adventure|Comedy|Sci-Fi",
+        "year" : 2020,
+        "budjet" : 18676
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4ab"),
+        "movie_name" : "Silent Hill",
+        "genres" : "Fantasy|Horror|Thriller",
+        "year" : 2006,
+        "budjet" : 10577
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4ac"),
+        "movie_name" : "Molly",
+        "genres" : "Comedy|Drama",
+        "year" : 2020,
+        "budjet" : 10584
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4ad"),
+        "movie_name" : "Summer of '42",
+        "genres" : "Drama",
+        "year" : 2007,
+        "budjet" : 9170
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4ae"),
+        "movie_name" : "Nosferatu (Nosferatu, eine Symphonie des Grauens)",
+        "genres" : "Horror",
+        "year" : 2014,
+        "budjet" : 19241
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4af"),
+        "movie_name" : "Twelfth Night",
+        "genres" : "Comedy|Drama|Romance",
+        "year" : 1991,
+        "budjet" : 14698
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b0"),
+        "movie_name" : "12 Rounds 2: Reloaded",
+        "genres" : "Action|Adventure|Thriller",
+        "year" : 2013,
+        "budjet" : 10376
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b1"),
+        "movie_name" : "Oh! What a Lovely War",
+        "genres" : "Musical|War",
+        "year" : 2012,
+        "budjet" : 11365
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b2"),
+        "movie_name" : "Killer Elite",
+        "genres" : "Action|Thriller",
+        "year" : 2018,
+        "budjet" : 17006
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b3"),
+        "movie_name" : "Civic Duty",
+        "genres" : "Drama|Thriller",
+        "year" : 2013,
+        "budjet" : 17354
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b4"),
+        "movie_name" : "Between the Folds",
+        "genres" : "Documentary",
+        "year" : 2009,
+        "budjet" : 11607
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b5"),
+        "movie_name" : "Love Letters",
+        "genres" : "Drama|Mystery|Romance",
+        "year" : 2007,
+        "budjet" : 16049
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b6"),
+        "movie_name" : "Holiday (Jour de fête)",
+        "genres" : "Comedy",
+        "year" : 2007,
+        "budjet" : 17258
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b7"),
+        "movie_name" : "What to Expect When You're Expecting",
+        "genres" : "Comedy|Drama|Romance",
+        "year" : 2006,
+        "budjet" : 10071
+}
+{
+        "_id" : ObjectId("619d02297823ab84392fa4b8"),
+        "movie_name" : "Forgotten Silver",
+        "genres" : "Comedy|Documentary",
+        "year" : 2019,
+        "budjet" : 14576
+}
+Type "it" for more
+
+------------------------------------------------------------------------
+
+// to find all movies greater than and greater than equal to a budget
+
+>  db.movie.find({budjet: {$gt: 15000}}).pretty()  //for greater than
+
+>   db.movie.find({budjet: {$gte: 17652}}).pretty()  // for greater than equal to 
+
+
+---------------------------------------------------------------------
+
+// to find all movies less than and less than equal to a budget
+
+> db.movie.find({budjet: {$lt: 9100}}).pretty()      //for less than
+
+>db.movie.find({budjet: {$lte: 9039}}).pretty()      //for less than equal to 
+
+----------------------------------------------------------------------------
+
+// to find all movies that are produced after 2000 with budget greater than 10000
+
+> db.movie.find({$and: [{year: {$gt: 2000}}, {budjet: {$gt:10000}}]}).pretty()
+
+-----------------------------------------------------------------------------
+
+// to find all movies that are produced after 2000 or budget greater than 10000
+
+> db.movie.find({$or: [{year: {$gt: 2000}}, {budjet: {$gt:10000}}]}).pretty() 
+
+------------------------------------------------------------------------------
+
+// find all movies that are neither produced after 2000 nor with budget greater than 10000.
+
+> db.movie.find({$nor: [{year: {$gt: 2000}}, {budjet: {$gt:10000}}]}).pretty()
+
+--------------------------------------------------------------------------------
+
+// to find all movies that are not produced in 2000 or they do not have budget of 10000
+
+> db.movie.find({$or: [{year: {$not: {$eq: 2000}}}, {budjet: {$not: {$eq:10000}}}]}).pretty()
+
+--------------------------------------------------------------------------------
+
+// to find all movies that were produced from 2000 to 2010.
+
+> db.movie.find( {year: { $gt: 2000, $lt: 2010} } ).pretty()
+
+---------------------------------------------------------------------------------
+
+// to sort all movies descending based on the production year and if the year is same then alphabetically for their movie_names
+
+> db.movie.find().sort({year: -1, movie_name: 1}).pretty()             
+
+----------------------------------------------------------------------------------
+
+// to skip the first 10 entries and fetch the next 5
+
+>  db.movie.find( {year: {$in: [2000, 2001, 2002]}}).skip(10).limit(5).pretty()
+
+-----------------------------------------------------------------------------------
+
