@@ -24,8 +24,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("user", userSchema); // users
 
+const User = mongoose.model("user", userSchema); 
+
+
+//----------sections collection--------------------------
 const sectionSchema = new mongoose.Schema(
     {
       section_name: { type: String, required: true }
@@ -36,7 +39,11 @@ const sectionSchema = new mongoose.Schema(
     }
 );
 
-const Section = mongoose.model("section", sectionSchema);  // sections collection
+
+const Section = mongoose.model("section", sectionSchema);  
+
+
+//----------book collection--------------------------
 
 const bookSchema = new mongoose.Schema(
   {
@@ -61,19 +68,15 @@ const bookSchema = new mongoose.Schema(
   }
 );
 
-const Book = mongoose.model("book", bookSchema); // books collection
+const Book = mongoose.model("book", bookSchema); 
+
+
+//----------author collection--------------------------
 
 const authorSchema = new mongoose.Schema(
   {
     first_name: { type: String, required: true },
     last_name: { type: String, required: false },
-    // book_ids: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "book",
-    //     required: true,
-    //   },
-    // ]
   },
   
   {
@@ -82,7 +85,10 @@ const authorSchema = new mongoose.Schema(
   }
 );
 
-const Author = mongoose.model("author", authorSchema); // authors collection
+const Author = mongoose.model("author", authorSchema); 
+
+
+//------------------Check status collection--------------
 
 const checkedoutSchema = new mongoose.Schema(
   {
@@ -112,12 +118,12 @@ const checkedoutSchema = new mongoose.Schema(
 
 const Checkedout = mongoose.model("checkedout", checkedoutSchema); // checkedouts collection
 
-//****************** */
+
+//----------------------------CRUD--Users----------------------------------------------------
+
 app.post("/users", async (req, res) => {
-  
   try {
     const user = await User.create(req.body);
-
     return res.status(201).send(user);
   } catch (e) {
     return res.status(500).json({ message: e.message, status: "Failed" });
@@ -133,8 +139,9 @@ app.get("/users", async (req, res) => {
     return res.status(500).json({ message: e.message, status: "Failed" });
   }
 });
-//****************** */
-//****************** */
+ 
+
+///----------------------------CRUD--Section----------------------------------------------------
 app.post("/sections", async (req, res) => {
   
   try {
@@ -155,8 +162,10 @@ app.get("/sections", async (req, res) => {
     return res.status(500).json({ message: e.message, status: "Failed" });
   }
 });
-//****************** */
-//****************** */
+
+
+//----------------------------CRUD--Author----------------------------------------------------
+
 app.post("/authors", async (req, res) => {
   
   
@@ -201,7 +210,9 @@ app.get("/books", async (req, res) => {
     return res.status(500).json({ message: e.message, status: "Failed" });
   }
 });
-//****************** */
+
+//----------------------------CRUD--Books----------------------------------------------------
+
 app.get("/books/:section", async (req, res) => {
   
   try {
@@ -217,7 +228,9 @@ app.get("/books/:section", async (req, res) => {
     return res.status(500).json({ message: e.message, status: "Failed" });
   }
 });
-//****************** */
+
+
+///----------------------------CRUD--Checkout---------------------------------------------------
 app.post("/checkouts", async (req, res) => {
   
   
@@ -240,19 +253,20 @@ app.get("/checkouts", async (req, res) => {
   }
 });
 
-//********** query ******** */
-app.get("/checkouts/:status", async (req, res) => {
-  
-  try {
-    const checkout = await Checkedout.find({status: req.params.status}).lean().exec();
-
-    return res.send({ checkout });
-  } catch (e) {
-    return res.status(500).json({ message: e.message, status: "Failed" });
-  }
-});
-//****************** */
 app.listen(2300, async () => {
     await connect();
     console.log("listening on 2300");
 });
+
+// //********** query ******** */
+// app.get("/checkouts/:status", async (req, res) => {
+  
+//   try {
+//     const checkout = await Checkedout.find({status: req.params.status}).lean().exec();
+
+//     return res.send({ checkout });
+//   } catch (e) {
+//     return res.status(500).json({ message: e.message, status: "Failed" });
+//   }
+// });
+// //****************** */
