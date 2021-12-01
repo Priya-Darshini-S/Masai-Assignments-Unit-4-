@@ -233,6 +233,9 @@ app.delete("/works/:id", async (req, res) => {
 //----------------------------------queries-------------------------------------------------
 
 
+//get all jobs in a particular city which matches a particular skill
+
+
 app.get("/company/:location", async (req, res) => {
     try{
         const companys = await Company.find({location: req.params.location}).populate({path: "job_id", select:"skill"}).lean().exec();
@@ -242,18 +245,8 @@ app.get("/company/:location", async (req, res) => {
     }
 });
 
-app.get("/company", async (req, res) => {
-    try{
-        const companys = await Company.find().lean().exec();
-        for(let i=0; i<companys.length; i++){
-            return res.status(201).send(companys[i]); 
-        }
-       // return res.status(201).send({companys});
-    }catch(e){
-        return res.status(500).json({message: e.message, status: "Failed"});
-    }
-});
 
+//find all jobs by sorting the jobs as per their rating.
 
 app.get("/jobs_sort", async (req, res) => {
     try{
@@ -264,8 +257,16 @@ app.get("/jobs_sort", async (req, res) => {
     }
 })
 
-//find().sort({year: -1, movie_name: 1}).pretty()        
-
+//find the company that has the most open jobs.
+app.get("/company_openings", async (req, res) => {
+    try{
+        const jobs = await Job.find().sort({rating: 1}).lean().exec();
+        return res.status(201).send({jobs});
+    }catch(e){
+        return res.status(500).json({message: e.message, status: "Failed"});
+    }
+})
+ 
 app.listen(3001, async function() {
     await connect();
     console.log("Listening in 3001");
