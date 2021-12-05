@@ -1,5 +1,7 @@
 const express = require("express");
 
+//const sendMail = require("../utils/send_mail")
+
 const transporter = require("../configs/mail");
 
 const User = require("../models/user.model");
@@ -17,7 +19,9 @@ router.get("/", async (req, res) => {
 
         const users = await User.find().skip(skip).limit(size).lean().exec();
         
-        return res.send(users);
+        const totalPages = Math.ceil((await User.find().countDocuments()) / size);
+        return res.send({users, totalPages});
+     //   console.log('total:', total)
     }catch(e){
         return res.status(500).json({ status: "failed", message: e.message });
     }
@@ -26,18 +30,34 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const users = await User.create(req.body);
-
         const message = {
-            from: "a@a.com",
-            to: "b@b.com",
-            subject: `Welcome to masai system ${req.body.first_name}`,
+            
+            from: "sender@server.com",
+            to: req.body.email,
+            subject: ` Welcome to ABC system ${req.body.first_name} ${req.body.last_name}`,
             text: `Hi ${req.body.first_name}, Please confirm your email address`,
-            html: "<h1>Hi, Please confirm your email address</h1>"
+            html: `<h1>Hi ${req.body.first_name}, Please confirm your email address</h1>`
         };
-        
+
         transporter.sendMail(message);
 
-        return res.status(200).json({users});
+        const userList = await User.find();
+        userList.forEach( (eachuser) => {
+
+            if(eachuser.role === "admin"){
+                let mail = eachuser.email;
+                const admin_message = {
+                    from: "sender@server.com",
+                    to: mail,
+                    subject: `${req.body.first_name} ${req.body.last_name} has registered with us`,
+                    text: `Please welcome ${req.body.first_name} ${req.body.last_name}`,
+                    html: `<h1>Please welcome ${req.body.first_name} ${req.body.last_name}</h1>`
+                };
+                transporter.sendMail(admin_message);
+            }
+        });
+
+        return res.status(200).json(users);
     }catch(e){
         return res.status(500).json({ status: "failed", message: e.message });
     }
@@ -53,3 +73,5 @@ router.delete("/:id", async (req, res) => {
 })
 
 module.exports = router;
+
+

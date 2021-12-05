@@ -51,5 +51,12 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-module.exports = router;
 
+router.get("/eval/:subject", async (req, res) => {
+    try{
+        const students = await Student.find().populate({path: ""}).lean().exec();
+        return res.status(201).send({students});
+    }catch(e){
+        return res.status(500).json({message: e.message, status: "Failed"});
+    }
+})
